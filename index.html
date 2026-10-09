@@ -8,21 +8,17 @@
     <style>
         html {
             scrollbar-width: none;
-            /* Firefox */
-            -ms-overflow-style: none;
-            /* Edge antigo */
+            -ms-overflow-style: none
         }
 
         html::-webkit-scrollbar,
         body::-webkit-scrollbar {
-            display: none;
-            /* Chrome, Edge, Safari */
+            display: none
         }
 
         :root {
             --red: #C8102E;
             --gold: #F2B705;
-            --black: #111;
             --bg: #fff;
             --bg2: #F4F4F2;
             --ink: #111;
@@ -74,6 +70,10 @@
             overflow-x: hidden
         }
 
+        body.menu {
+            overflow: hidden
+        }
+
         .w {
             max-width: 1200px;
             margin: 0 auto;
@@ -87,7 +87,7 @@
             height: 3px;
             width: 0;
             background: linear-gradient(90deg, var(--red), var(--gold));
-            z-index: 20
+            z-index: 50
         }
 
         nav {
@@ -126,19 +126,23 @@
             line-height: 1.2
         }
 
-        .logo i {
+        .bandeira {
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-image: url('assets/img/bandeira.png');
-            background-size: cover;
+            object-fit: cover;
             border: 2px solid var(--gold);
-            flex: none
+            flex: none;
+            transition: transform .5s
+        }
+
+        .logo:hover .bandeira {
+            transform: rotate(360deg)
         }
 
         .logo small {
             display: block;
-            color: var(--golphotod);
+            color: var(--gold);
             font-weight: 500;
             font-size: 12.5px
         }
@@ -212,11 +216,15 @@
             overflow: hidden;
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
-            padding: 13px 24px;
+            padding: clamp(11px, 1.6vw, 14px) clamp(18px, 2.4vw, 26px);
             border-radius: 10px;
-            font: 600 17px inherit;
             font-family: inherit;
+            font-weight: 600;
+            font-size: clamp(15px, 1.7vw, 17px);
+            line-height: 1.2;
+            white-space: nowrap;
             text-decoration: none;
             border: 2px solid var(--red);
             background: var(--red);
@@ -309,6 +317,8 @@
 
         .hr {
             grid-column: span 6;
+            display: flex;
+            justify-content: center;
             perspective: 900px
         }
 
@@ -348,9 +358,9 @@
 
         .cta {
             display: flex;
-            gap: 16px;
-            margin: 28px 0;
-            flex-wrap: wrap
+            flex-wrap: wrap;
+            gap: 12px 16px;
+            margin: 28px 0
         }
 
         .soc small {
@@ -365,7 +375,8 @@
 
         .soc div {
             display: flex;
-            gap: 12px
+            gap: 12px;
+            flex-wrap: wrap
         }
 
         .soc a {
@@ -394,15 +405,15 @@
         }
 
         .photo {
-            aspect-ratio: 4/5;
-            max-height: 600px;
+            position: relative;
             width: 100%;
-            padding: 0;
-            display: block;
+            max-width: 480px;
+            aspect-ratio: 4/5;
             overflow: hidden;
             border-radius: 18px;
             border: 2px solid var(--gold);
             box-shadow: 0 18px 44px rgba(0, 0, 0, .28);
+            transition: transform .15s ease-out
         }
 
         .photo img {
@@ -410,17 +421,7 @@
             height: 100%;
             display: block;
             object-fit: cover;
-            object-position: center 12%;
-            /* mantém o rosto enquadrado */
-        }
-
-        .bandeira {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-image: url('assets/img/bandeira.png');
-            background-size: cover;
-            border: 2px solid var(--gold);
+            object-position: center 15%
         }
 
         .photo::after {
@@ -429,7 +430,8 @@
             inset: 0;
             background: linear-gradient(115deg, transparent 40%, rgba(242, 183, 5, .18) 50%, transparent 60%);
             transform: translateX(-100%);
-            animation: gl 5s ease-in-out infinite
+            animation: gl 5s ease-in-out infinite;
+            pointer-events: none
         }
 
         @keyframes gl {
@@ -438,13 +440,6 @@
             100% {
                 transform: translateX(100%)
             }
-        }
-
-        .photo b {
-            display: block;
-            color: var(--gold);
-            font-size: 18px;
-            margin-bottom: 6px
         }
 
         section {
@@ -467,7 +462,6 @@
             transition: width .8s .2s
         }
 
-        .rv.in h2::after,
         h2.rv.in::after {
             width: 96px
         }
@@ -524,6 +518,10 @@
 
         .card p {
             color: var(--mut)
+        }
+
+        .dk h3 {
+            color: #fff
         }
 
         .dk p {
@@ -605,41 +603,6 @@
             transition: background .4s
         }
 
-        .th {
-            height: 140px;
-            border-radius: 10px;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #2c2c2c, #0b0b0b);
-            border-bottom: 3px solid var(--red);
-            display: grid;
-            place-items: center;
-            color: var(--gold);
-            font-size: 14px;
-            font-weight: 600;
-            position: relative;
-            overflow: hidden
-        }
-
-        .th::before {
-            content: "▶";
-            position: absolute;
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            background: rgba(200, 16, 46, .9);
-            color: #fff;
-            display: grid;
-            place-items: center;
-            font-size: 16px;
-            transition: transform .3s;
-            opacity: 0
-        }
-
-        .card:hover .th::before {
-            opacity: 1;
-            transform: scale(1.1)
-        }
-
         .badge {
             display: inline-block;
             background: var(--gold);
@@ -651,14 +614,63 @@
             margin-bottom: 10px
         }
 
-        .dk h3 {
-            color: #fff
-        }
-
         .note {
             font-size: 13px;
             color: var(--mut);
             margin-top: 12px
+        }
+
+        .yt {
+            position: relative;
+            aspect-ratio: 16/9;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #000 center/cover;
+            cursor: pointer;
+            margin-bottom: 16px;
+            border-bottom: 3px solid var(--red)
+        }
+
+        .yt::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 62px;
+            height: 44px;
+            margin: -22px 0 0 -31px;
+            border-radius: 12px;
+            background: var(--red);
+            transition: transform .3s
+        }
+
+        .yt::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -6px;
+            border-left: 16px solid #fff;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            z-index: 1
+        }
+
+        .yt:hover::after {
+            transform: scale(1.12)
+        }
+
+        .yt.playing::before,
+        .yt.playing::after {
+            display: none
+        }
+
+        .yt iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0
         }
 
         footer {
@@ -671,22 +683,12 @@
         footer .w {
             display: flex;
             justify-content: space-between;
-            gap: 20px;
+            gap: 12px 20px;
             flex-wrap: wrap;
             align-items: center
         }
 
         footer .c {
-            color: var(--gold)
-        }
-
-        footer a {
-            color: #ddd;
-            margin-left: 16px;
-            transition: color .2s
-        }
-
-        footer a:hover {
             color: var(--gold)
         }
 
@@ -746,34 +748,18 @@
             }
         }
 
-        @media(max-width:960px) {
+        #ov,
+        #side {
+            display: none
+        }
+
+        @media(max-width:961px) {
+            .links {
+                display: none
+            }
+
             .mb {
                 display: grid
-            }
-
-            .links {
-                position: fixed;
-                top: 0;
-                right: 0;
-                height: 100%;
-                width: min(300px, 80%);
-                background: #111;
-                flex-direction: column;
-                align-items: flex-start;
-                justify-content: center;
-                padding: 32px;
-                gap: 24px;
-                transform: translateX(100%);
-                transition: transform .4s;
-                box-shadow: -10px 0 30px rgba(0, 0, 0, .4)
-            }
-
-            .links.open {
-                transform: none
-            }
-
-            .links a:not(.btn) {
-                font-size: 20px
             }
 
             .hl,
@@ -791,6 +777,88 @@
             section {
                 padding: 60px 0
             }
+
+            .photo {
+                max-width: 420px
+            }
+
+            #ov {
+                display: block;
+                position: fixed;
+                inset: 0;
+                z-index: 30;
+                background: rgba(0, 0, 0, .45);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity .35s
+            }
+
+            #side {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 6px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: auto;
+                height: 100%;
+                width: min(300px, 80%);
+                z-index: 40;
+                background: #111;
+                padding: 32px 24px;
+                transform: translateX(-100%);
+                transition: transform .4s cubic-bezier(.2, .7, .2, 1);
+                box-shadow: 10px 0 30px rgba(0, 0, 0, .4)
+            }
+
+            #side a {
+                position: relative;
+                color: #fff;
+                text-decoration: none;
+                font-size: 21px;
+                font-weight: 600;
+                padding: 14px 16px;
+                margin: 2px 0;
+                border-radius: 10px;
+                border-left: 4px solid transparent;
+                transition: background .25s, color .25s, padding-left .25s, border-color .25s
+            }
+
+            #side a:hover,
+            #side a:focus-visible,
+            #side a.on {
+                background: linear-gradient(90deg, rgba(242, 183, 5, .18), rgba(242, 183, 5, .04));
+                color: var(--gold);
+                border-left-color: var(--red);
+                padding-left: 24px;
+                outline: none
+            }
+
+            .cl {
+                position: absolute;
+                top: 18px;
+                right: 18px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                border: 1px solid #444;
+                background: #222;
+                color: var(--gold);
+                font-size: 18px;
+                cursor: pointer
+            }
+
+            body.menu #ov {
+                opacity: 1;
+                pointer-events: auto
+            }
+
+            body.menu #side {
+                transform: none
+            }
         }
 
         @media(max-width:560px) {
@@ -802,18 +870,22 @@
                 display: none
             }
 
+            .cta {
+                flex-direction: column
+            }
+
             .cta .btn {
-                flex: 1;
-                justify-content: center
+                width: 100%
+            }
+
+            .photo {
+                max-width: 100%;
+                aspect-ratio: 1/1
             }
 
             footer .w {
                 flex-direction: column;
                 text-align: center
-            }
-
-            footer a {
-                margin: 0 8px
             }
         }
 
@@ -832,20 +904,6 @@
                 transform: none
             }
         }
-
-        @media(max-width:960px) {
-            .photo {
-                aspect-ratio: 4/4.5;
-                max-height: 480px
-            }
-        }
-
-        .yt{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000 center/cover;cursor:pointer;margin-bottom:16px;border-bottom:3px solid var(--red)}
-.yt::after{content:"";position:absolute;top:50%;left:50%;width:62px;height:44px;margin:-22px 0 0 -31px;border-radius:12px;background:var(--red);transition:transform .3s}
-.yt::before{content:"";position:absolute;top:50%;left:50%;margin:-10px 0 0 -6px;border-left:16px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent;z-index:1}
-.yt:hover::after{transform:scale(1.12)}
-.yt.playing::before,.yt.playing::after{display:none}
-.yt iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
     </style>
 </head>
 
@@ -853,21 +911,26 @@
     <div id="bar"></div>
     <nav id="nav">
         <div class="w">
-            <div class="logo"><img class="bandeira" src="assets/img/bandeira.png" alt="">
+            <div class="logo"><img class="bandeira" src="assets/img/bandeira.png" alt="Bandeira de Angola">
                 <div>Dr. Aniceto Cunha<small>Sociólogo e Analista Político</small></div>
             </div>
             <div class="links" id="lk"><a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a
-                    href="#canais">Canais</a><a href="#contacto">Contacto</a><a class="btn"
-                    href="#contacto">Contactar</a></div>
+                    href="#canais">Canais</a><a href="#contacto">Contacto</a></div>
             <div style="display:flex;gap:10px">
                 <button class="tg" id="tg" aria-label="Alternar modo escuro/claro"><svg id="ic"
                         viewBox="0 0 24 24"></svg></button>
-                <button class="mb" id="mb" aria-label="Menu"><svg viewBox="0 0 24 24">
+                <button class="mb" id="mb" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24">
                         <path d="M4 7h16M4 12h16M4 17h16" />
                     </svg></button>
             </div>
         </div>
     </nav>
+    <div id="ov"></div>
+    <aside id="side" aria-hidden="true">
+        <button class="cl" id="cl" aria-label="Fechar menu">✕</button>
+        <a href="#sobre">Sobre</a><a href="#servicos">Serviços</a><a href="#canais">Canais</a><a
+            href="#contacto">Contacto</a>
+    </aside>
 
     <header class="hero">
         <div class="blob b1"></div>
@@ -882,10 +945,12 @@
                         href="#">↓ Descarregar CV</a></div>
                 <div class="soc ld" style="--d:.6s"><small>Siga nas redes</small>
                     <div>
-                        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24">
+                        <a href="https://www.facebook.com/anicetocunha.cunha" aria-label="Facebook"><svg
+                                viewBox="0 0 24 24">
                                 <path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z" />
                             </svg></a>
-                        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24">
+                        <a href="https://www.instagram.com/anicetocunhacunha" aria-label="YouTube"><svg
+                                viewBox="0 0 24 24">
                                 <rect x="3" y="6" width="18" height="12" rx="4" />
                                 <path d="M10 9.5v5l4.5-2.5z" />
                             </svg></a>
@@ -905,9 +970,8 @@
                 </div>
             </div>
             <div class="hr ld" style="--d:.3s">
-                <div class="photo" id="ph">
-                    <img src="assets/img/profile-00.jpg" alt="Retrato profissional">
-                </div>
+                <div class="photo" id="ph"><img src="assets/img/profile-00.jpg" alt="Retrato do Dr. Aniceto Cunha"
+                        width="800" height="1000" decoding="async"></div>
             </div>
         </div>
     </header>
@@ -930,8 +994,7 @@
                     <div class="stat"><b data-n="7">00+</b><span>Anos de experiência</span></div>
                     <div class="stat"><b data-n="100">00+</b><span>Publicações e artigos</span></div>
                     <div class="stat"><b data-n="20">00+</b><span>Entrevistas e debates</span></div>
-                    <p class="note" style="color:#999">Valores reais a preencher (basta alterar data-n no código para
-                        activar a contagem animada).</p>
+                    <p class="note" style="color:#999">Valores reais a preencher (basta alterar data-n no código).</p>
                 </div>
             </div>
         </div>
@@ -964,7 +1027,7 @@
                             <rect x="9" y="3" width="6" height="11" rx="3" />
                             <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
                         </svg></div>
-                    <h3>Media &amp; Comunicação</h3>
+                    <h3>Mídia &amp; Comunicação</h3>
                     <p>Comentário político em televisão e rádio, artigos de opinião e formações em comunicação pública.
                     </p>
                 </div>
@@ -973,42 +1036,33 @@
     </section>
 
     <section id="canais">
-  <div class="w">
-    <h2 class="rv">Canais e Participações</h2>
-    <p class="sub rv">Espaços de comunicação social em que o Dr. Aniceto Cunha participa como convidado.</p>
-    <div class="g12">
-
-      <div class="card dk s4 rv">
-        <div class="yt" data-id="pYsfJJ9vzJ4"></div>
-        <span class="badge">Convidado / Comentador</span>
-        <h3>Correio da Kianda TV</h3>
-        <p>Aniceto Cunha fala como foi criado o MEA</p>
-      </div>
-
-      <div class="card dk s4 rv" style="--d:.12s">
-        <div class="yt" data-id="8DovbruxhPo"></div>
-        <span class="badge">Convidado / Comentador</span>
-        <h3>Kabazinsango TV</h3>
-        <p>Aniceto Cunha militante do MPLA tentou com unhas e dentes defender o partido foi humilhado</p>
-      </div>
-
-      <div class="card dk s4 rv" style="--d:.24s">
-        <div class="yt" data-id="LZdE9npbP_g"></div>
-        <span class="badge">Convidado / Comentador</span>
-        <h3>Rádio Ouvinte</h3>
-        <p>Entrevista com o Dr. Aniceto Cunha no Programa "PAPO RECTO" na Radio Ouvinte</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
+        <div class="w">
+            <h2 class="rv">Canais e Participações</h2>
+            <p class="sub rv">Espaços de comunicação social em que o Dr. Aniceto Cunha participa como convidado.</p>
+            <div class="g12">
+                <div class="card dk s4 rv">
+                    <div class="yt" data-id="pYsfJJ9vzJ4"></div><span class="badge">Convidado / Comentador</span>
+                    <h3>Correio da Kianda TV</h3>
+                    <p>Aniceto Cunha fala como foi criado o MEA</p>
+                </div>
+                <div class="card dk s4 rv" style="--d:.12s">
+                    <div class="yt" data-id="8DovbruxhPo"></div><span class="badge">Convidado / Comentador</span>
+                    <h3>Kabazinsango TV</h3>
+                    <p>Aniceto Cunha militante do MPLA tentou com unhas e dentes defender o partido foi humilhado</p>
+                </div>
+                <div class="card dk s4 rv" style="--d:.24s">
+                    <div class="yt" data-id="LZdE9npbP_g"></div><span class="badge">Convidado / Comentador</span>
+                    <h3>Rádio Ouvinte</h3>
+                    <p>Entrevista com o Dr. Aniceto Cunha no Programa "PAPO RECTO" na Radio Ouvinte</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <footer id="contacto">
         <div class="w">
             <div>© 2026 Dr. Aniceto Cunha. Todos os direitos reservados.</div>
             <div class="c">Luanda, Angola · email@exemplo.ao · +244 9XX XXX XXX</div>
-            <div><a href="#">Política de Privacidade</a><a href="#">Termos de Uso</a></div>
         </div>
     </footer>
     <button id="up" aria-label="Voltar ao topo">↑</button>
@@ -1022,9 +1076,13 @@
             try { var s = localStorage.getItem('theme'); if (s) R.setAttribute('data-theme', s) } catch (e) { }
             icon();
             $('tg').onclick = function () { var n = isDark() ? 'light' : 'dark'; R.setAttribute('data-theme', n); try { localStorage.setItem('theme', n) } catch (e) { } icon() };
-            var lk = $('lk');
-            $('mb').onclick = function () { lk.classList.toggle('open') };
-            lk.addEventListener('click', function (e) { if (e.target.tagName === 'A') lk.classList.remove('open') });
+            var side = $('side');
+            function menu(o) { document.body.classList.toggle('menu', o); side.setAttribute('aria-hidden', !o); $('mb').setAttribute('aria-expanded', o) }
+            $('mb').onclick = function () { menu(!document.body.classList.contains('menu')) };
+            $('ov').onclick = $('cl').onclick = function () { menu(false) };
+            side.addEventListener('click', function (e) { if (e.target.tagName === 'A') menu(false) });
+            addEventListener('keydown', function (e) { if (e.key === 'Escape') menu(false) });
+            matchMedia('(min-width:962px)').addEventListener('change', function (e) { if (e.matches) menu(false) });
             var bar = $('bar'), nav = $('nav'), up = $('up');
             function sc() { var y = scrollY, h = R.scrollHeight - innerHeight; bar.style.width = (h > 0 ? y / h * 100 : 0) + '%'; nav.classList.toggle('sc', y > 20); up.classList.toggle('on', y > 500) }
             addEventListener('scroll', sc, { passive: true }); sc();
@@ -1032,7 +1090,7 @@
             function count(el) { var t = +el.dataset.n; if (!t) return; var s = null; (function f(ts) { s = s || ts; var p = Math.min((ts - s) / 1400, 1); el.textContent = Math.round(t * (1 - Math.pow(1 - p, 3))) + '+'; if (p < 1) requestAnimationFrame(f) })(performance.now()) }
             var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); e.target.querySelectorAll('[data-n]').forEach(count); io.unobserve(e.target) } }) }, { threshold: .15 });
             document.querySelectorAll('.rv').forEach(function (el) { io.observe(el) });
-            var secs = [].slice.call(document.querySelectorAll('section[id],footer[id]')), as = [].slice.call(lk.querySelectorAll('a:not(.btn)'));
+            var secs = [].slice.call(document.querySelectorAll('section[id],footer[id]')), as = [].slice.call(document.querySelectorAll('#lk a:not(.btn), #side a'));
             var so = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) as.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id) }) }) }, { rootMargin: '-45% 0px -50% 0px' });
             secs.forEach(function (s) { so.observe(s) });
             var ph = $('ph');
@@ -1040,16 +1098,15 @@
                 ph.parentNode.addEventListener('mousemove', function (e) { var r = ph.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; ph.style.transform = 'rotateY(' + x * 10 + 'deg) rotateX(' + -y * 10 + 'deg)' });
                 ph.parentNode.addEventListener('mouseleave', function () { ph.style.transform = '' })
             }
-        })();
-
-        document.querySelectorAll('.yt').forEach(function(el){
-            var id=el.dataset.id;
-            el.style.backgroundImage='url(https://img.youtube.com/vi/'+id+'/hqdefault.jpg)';
-            el.addEventListener('click',function(){
-                el.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Vídeo do programa"></iframe>';
-                el.classList.add('playing');
-            },{once:true});
+            document.querySelectorAll('.yt').forEach(function (el) {
+                var id = el.dataset.id;
+                el.style.backgroundImage = 'url(https://img.youtube.com/vi/' + id + '/hqdefault.jpg)';
+                el.addEventListener('click', function () {
+                    el.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen title="Vídeo do programa"></iframe>';
+                    el.classList.add('playing')
+                }, { once: true })
             });
+        })();
     </script>
 </body>
 
